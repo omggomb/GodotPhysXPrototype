@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://NoPhysics/MultiMesh/CubeSpawnerMultimesh.gd" type="Script" id=1]
+
+[sub_resource type="CubeMesh" id=1]
+
+[sub_resource type="MultiMesh" id=2]
+transform_format = 1
+visible_instance_count = 0
+mesh = SubResource( 1 )
+
+[node name="CubeSpawnerMultimesh" type="MultiMeshInstance"]
+multimesh = SubResource( 2 )
+script = ExtResource( 1 )

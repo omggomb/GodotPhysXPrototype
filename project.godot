@@ -1,0 +1,49 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Spatial",
+"class": "PhysXSpawner",
+"language": "NativeScript",
+"path": "res://PhysX/PhysXSpawner.gdns"
+}, {
+"base": "Spatial",
+"class": "ServerSpawner",
+"language": "NativeScript",
+"path": "res://BulletOrBuiltin/ReallyThough.gdns"
+} ]
+_global_script_class_icons={
+"PhysXSpawner": "",
+"ServerSpawner": ""
+}
+
+[application]
+
+config/name="PhysXTest"
+run/main_scene="res://MainScene.tscn"
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
+
+[gui]
+
+theme/use_hidpi=true
+
+[physics]
+
+3d/physics_engine="Bullet"
+
+[rendering]
+
+quality/shadows/filter_mode=2
+quality/filters/anisotropic_filter_level=16
+quality/filters/msaa=2

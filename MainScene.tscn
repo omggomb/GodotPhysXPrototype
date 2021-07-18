@@ -1,0 +1,268 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://BulletOrBuiltin/Spawner.gd" type="Script" id=1]
+[ext_resource path="res://BulletOrBuiltin/ReallyThough.gdns" type="Script" id=2]
+[ext_resource path="res://NoPhysics/Instances/CubeGridSpawner.tscn" type="PackedScene" id=3]
+[ext_resource path="res://NoPhysics/MultiMesh/CubeSpawnerMultimesh.tscn" type="PackedScene" id=4]
+[ext_resource path="res://PhysX/PhysXSpawner.gdns" type="Script" id=5]
+[ext_resource path="res://addons/kenney_prototype_textures/dark/texture_07.png" type="Texture" id=6]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Label
+
+func _process(delta):
+	text = str(Performance.get_monitor(Performance.TIME_FPS))
+
+"
+
+[sub_resource type="ProceduralSky" id=2]
+
+[sub_resource type="Environment" id=3]
+background_mode = 2
+background_sky = SubResource( 2 )
+background_sky_orientation = Basis( 0.376224, 0, 0.926529, 0, 1, 0, -0.926529, 0, 0.376224 )
+tonemap_mode = 2
+dof_blur_far_distance = 421.19
+dof_blur_near_distance = 87.16
+dof_blur_near_transition = 9.79
+glow_enabled = true
+glow_bicubic_upscale = true
+
+[sub_resource type="PhysicsMaterial" id=4]
+friction = 0.3
+bounce = 0.1
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 1000, 0.05, 1000 )
+
+[sub_resource type="CubeMesh" id=6]
+size = Vector3( 1000, 0.1, 1000 )
+
+[sub_resource type="SpatialMaterial" id=7]
+albedo_texture = ExtResource( 6 )
+uv1_scale = Vector3( 100, 100, 100 )
+
+[sub_resource type="BoxShape" id=8]
+extents = Vector3( 10, 100, 0.1 )
+
+[sub_resource type="BoxShape" id=9]
+extents = Vector3( 0.1, 100, 10 )
+
+[node name="MainScene" type="Spatial"]
+
+[node name="HUD" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="HUD"]
+margin_right = 400.0
+margin_bottom = 368.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD"]
+margin_left = 21.0
+margin_top = 18.0
+margin_right = 157.0
+margin_bottom = 170.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/VBoxContainer"]
+margin_right = 358.0
+margin_bottom = 25.0
+
+[node name="ObjectsLabel" type="Label" parent="HUD/VBoxContainer/HBoxContainer"]
+margin_right = 87.0
+margin_bottom = 25.0
+text = "Objects:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ObjectsCount" type="Label" parent="HUD/VBoxContainer/HBoxContainer"]
+margin_left = 95.0
+margin_right = 147.0
+margin_bottom = 25.0
+text = "9999"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FPSCountContainer" type="HBoxContainer" parent="HUD/VBoxContainer"]
+margin_top = 33.0
+margin_right = 358.0
+margin_bottom = 58.0
+
+[node name="FPSCount" type="Label" parent="HUD/VBoxContainer/FPSCountContainer"]
+margin_right = 39.0
+margin_bottom = 25.0
+text = "999"
+script = SubResource( 1 )
+
+[node name="FPSLabel" type="Label" parent="HUD/VBoxContainer/FPSCountContainer"]
+margin_left = 47.0
+margin_right = 86.0
+margin_bottom = 25.0
+text = "FPS"
+
+[node name="InstanceBujtton" type="Button" parent="HUD/VBoxContainer"]
+margin_top = 66.0
+margin_right = 358.0
+margin_bottom = 103.0
+text = "Scenes"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ServerButton" type="Button" parent="HUD/VBoxContainer"]
+margin_top = 111.0
+margin_right = 358.0
+margin_bottom = 148.0
+text = "Visual Server (GDNative)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GDScriptServerButton" type="Button" parent="HUD/VBoxContainer"]
+margin_top = 156.0
+margin_right = 358.0
+margin_bottom = 193.0
+text = "Visual Server (GDScript)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PhysXButton" type="Button" parent="HUD/VBoxContainer"]
+margin_top = 201.0
+margin_right = 358.0
+margin_bottom = 238.0
+text = "PhysX Visual Server (GDNative)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CubesButton" type="Button" parent="HUD/VBoxContainer"]
+margin_top = 246.0
+margin_right = 358.0
+margin_bottom = 283.0
+text = "Scenes (No Physics)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MultiMeshInstanceButton" type="Button" parent="HUD/VBoxContainer"]
+margin_top = 291.0
+margin_right = 358.0
+margin_bottom = 328.0
+text = "MultiMesh (No Physics)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnvironmentSetup" type="Node" parent="."]
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="EnvironmentSetup"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100.718, 0 )
+extents = Vector3( 1000, 1000, 1000 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="EnvironmentSetup"]
+environment = SubResource( 3 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="EnvironmentSetup"]
+transform = Transform( 0.496262, -0.781948, 0.377201, 0, 0.434477, 0.900683, -0.868173, -0.446975, 0.215615, 0, 0, 0 )
+shadow_enabled = true
+shadow_bias = 0.05
+directional_shadow_blend_splits = true
+directional_shadow_max_distance = 320.0
+
+[node name="Camera" type="Camera" parent="EnvironmentSetup"]
+transform = Transform( 1, 0, 0, 0, 0.918253, 0.395994, 0, -0.395994, 0.918253, 0.758312, 74.3106, 112.263 )
+far = 8192.0
+
+[node name="StaticElements" type="Node" parent="."]
+
+[node name="Floor" type="StaticBody" parent="StaticElements"]
+physics_material_override = SubResource( 4 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticElements/Floor"]
+shape = SubResource( 5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="StaticElements/Floor"]
+mesh = SubResource( 6 )
+material/0 = SubResource( 7 )
+
+[node name="InvisibleWall" type="StaticBody" parent="StaticElements"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 10 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticElements/InvisibleWall"]
+shape = SubResource( 8 )
+
+[node name="InvisibleWall2" type="StaticBody" parent="StaticElements"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, -10 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticElements/InvisibleWall2"]
+shape = SubResource( 8 )
+
+[node name="InvisibleWall3" type="StaticBody" parent="StaticElements"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 100, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticElements/InvisibleWall3"]
+shape = SubResource( 9 )
+
+[node name="InvisibleWall4" type="StaticBody" parent="StaticElements"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 100, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticElements/InvisibleWall4"]
+shape = SubResource( 9 )
+
+[node name="NonPhysicsSpawners" type="Node" parent="."]
+
+[node name="CubeGridSpawner" parent="NonPhysicsSpawners" instance=ExtResource( 3 )]
+grid_dimensions = 30
+
+[node name="CubeSpawnerMultimesh" parent="NonPhysicsSpawners" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00266647, 0, -98.8506 )
+grid_dimensions = 80
+
+[node name="PhysicsSpawners" type="Node" parent="."]
+
+[node name="PhysX" type="Node" parent="PhysicsSpawners"]
+
+[node name="PhysXSpawner" type="Spatial" parent="PhysicsSpawners/PhysX"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 300, 0 )
+script = ExtResource( 5 )
+
+[node name="BulletOrGodotPhysics" type="Node" parent="PhysicsSpawners"]
+
+[node name="ServerSpawnerCpp" type="Spatial" parent="PhysicsSpawners/BulletOrGodotPhysics"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 80, 0 )
+script = ExtResource( 2 )
+
+[node name="Spawner" type="Position3D" parent="PhysicsSpawners/BulletOrGodotPhysics"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 80, 0 )
+script = ExtResource( 1 )
+phys_x_spawner_path = NodePath("../../PhysX/PhysXSpawner")
+cpp_server_spawner_path = NodePath("../ServerSpawnerCpp")
+force = -100
+object_count_label_path = NodePath("../../../HUD/VBoxContainer/HBoxContainer/ObjectsCount")
+
+[node name="SpawnedInstances" type="Spatial" parent="PhysicsSpawners/BulletOrGodotPhysics/Spawner"]
+
+[node name="SpawnTimer" type="Timer" parent="PhysicsSpawners"]
+process_mode = 0
+wait_time = 0.01
+
+[connection signal="pressed" from="HUD/VBoxContainer/InstanceBujtton" to="PhysicsSpawners/BulletOrGodotPhysics/Spawner" method="_on_InstanceBujtton_pressed"]
+[connection signal="pressed" from="HUD/VBoxContainer/ServerButton" to="PhysicsSpawners/BulletOrGodotPhysics/Spawner" method="_on_ServerButton_pressed"]
+[connection signal="pressed" from="HUD/VBoxContainer/GDScriptServerButton" to="PhysicsSpawners/BulletOrGodotPhysics/Spawner" method="_on_GDScriptServerButton_pressed"]
+[connection signal="pressed" from="HUD/VBoxContainer/PhysXButton" to="PhysicsSpawners/BulletOrGodotPhysics/Spawner" method="_on_PhysXButton_pressed"]
+[connection signal="pressed" from="HUD/VBoxContainer/CubesButton" to="PhysicsSpawners/BulletOrGodotPhysics/Spawner" method="_on_CubesButton_pressed"]
+[connection signal="pressed" from="HUD/VBoxContainer/MultiMeshInstanceButton" to="PhysicsSpawners/BulletOrGodotPhysics/Spawner" method="_on_MultiMeshInstanceButton_pressed"]
+[connection signal="timeout" from="PhysicsSpawners/SpawnTimer" to="PhysicsSpawners/BulletOrGodotPhysics/Spawner" method="_on_SpawnTimer_timeout"]
