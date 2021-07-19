@@ -33,8 +33,6 @@ onready var non_phys_multimesh_spawner = $"../../../NonPhysicsSpawners/CubeSpawn
 export(NodePath) var object_count_label_path
 onready var object_count_label = get_node(object_count_label_path) as Label
 
-var cube_state = null
-
 
 func _ready():
 	meshes.append(CubeMesh.new())
@@ -99,22 +97,15 @@ func _spawn_physx_cube():
 	
 	
 func _spawn_cubes_no_physics():
-	if cube_state:
-		cube_state = cube_state.resume()
-	else:
-		spawn_timer.stop()
-		
+	non_phys_instance_spawner.spawn_single()
 	count += 1
-	_update_count_label(non_phys_instance_spawner.grid_dimensions * count)
+	_increment_count()
 	
 	
 func _spawn_multimesh():
-	if cube_state:
-		cube_state = cube_state.resume()
-	else:
-		spawn_timer.stop()	
+	non_phys_multimesh_spawner.spawn_batch()
 	count += 1
-	_update_count_label(non_phys_multimesh_spawner.grid_dimensions * non_phys_multimesh_spawner.grid_dimensions * count)
+	_update_count_label(non_phys_multimesh_spawner.grid_dimensions * count)
 	
 	
 func on_body_moved(state, inst_rid):
@@ -188,14 +179,12 @@ func _on_PhysXButton_pressed():
 	
 func _on_MultiMeshInstanceButton_pressed():
 	reset()
-	cube_state = non_phys_multimesh_spawner.spawn_yielding()
 	spawn_type = SpawnType.MULTIMESH
 	spawn_timer.start()
 
 
 func _on_CubesButton_pressed():
 	reset()
-	cube_state = non_phys_instance_spawner.spawn_yielding()
 	spawn_type = SpawnType.CUBES
 	spawn_timer.start()
 
