@@ -3,3 +3,6 @@
 .vscode
 *.exp
 *.lib
+NoPhysics/ExportedMesh/1e6-cubes.glb
+NoPhysics/ExportedMesh/1e6-cubes.glb.import
+NoPhysics/ExportedMesh/Material.material

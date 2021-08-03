@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="Animation" id=8]
+resource_name = "New Anim"
+length = 40.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 40 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 359, 0 ) ]
+}
+
+[node name="RotatingCameraSetup" type="Spatial"]
+transform = Transform( 0.143061, 0, -0.989714, 0, 1, 0, 0.989714, 0, 0.143061, 0, 0, 0 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.890888, -0.454224, 0, 0.454224, 0.890888, 0, 10, 320 )
+far = 8192.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "New Anim"
+"anims/New Anim" = SubResource( 8 )

@@ -1,14 +1,19 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://NoPhysics/MultiMesh/CubeSpawnerMultimesh.gd" type="Script" id=1]
+[ext_resource path="res://Experiments/rotate_vertex_shader.shader" type="Shader" id=2]
 
-[sub_resource type="CubeMesh" id=1]
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 2 )
 
-[sub_resource type="MultiMesh" id=2]
+[sub_resource type="CubeMesh" id=2]
+material = SubResource( 1 )
+
+[sub_resource type="MultiMesh" id=3]
 transform_format = 1
 visible_instance_count = 0
-mesh = SubResource( 1 )
+mesh = SubResource( 2 )
 
 [node name="CubeSpawnerMultimesh" type="MultiMeshInstance"]
-multimesh = SubResource( 2 )
+multimesh = SubResource( 3 )
 script = ExtResource( 1 )
