@@ -1,5 +1,6 @@
 shader_type spatial;
 
+// Taken from: https://thebookofshaders.com/10/
 float random(float x)
 {
 	return fract(sin(x)*100000.0);
