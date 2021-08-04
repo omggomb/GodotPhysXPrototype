@@ -70,8 +70,7 @@ compared to other engines, it is not as slow as people tend to think.
 | Method | Number of cubes |
 |-|-|
 | Nodes (no physics) | 12 660 |
-| Instanced meshes (no physics) | 518 400
-
+| Instanced meshes (no physics) | 463 120
 # Evaluation
 When considering physics, performance is largely dependent on the backend that is used. 
 The proof of concept implementation of PhysX was about 3.27 times faster than
@@ -96,7 +95,7 @@ However when using servers instead of nodes the simulation remained stable.
 As predicted for this test, Godot's performance is limited by the amount of physics objects used. 
 Once physics are ignored, Godot's scene tree can handle more that 10 000 objects. Again not
 using the scene tree and instead using GPU instancing improves performance
-further and enables the rendering of more than 500 000 cubes. 
+further and enables the rendering of more than 400 000 cubes. 
 
 # Conclusion
 The bottom line is, that these sort of benchmarks are pretty useless. Also keep in mind, that the
